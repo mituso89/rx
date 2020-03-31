@@ -1,8 +1,0 @@
-{
-    "python.pythonPath": "~/otherWork/envflight/bin/python",
-    "python.venvPath": "~/otherWork/envflight",
-    "python.linting.pylintUseMinimalCheckers": false,
-    "python.formatting.provider": "autopep8",
-    "editor.formatOnSave": false,
-    "python.lingting.pylintEnable": true,
-}

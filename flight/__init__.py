@@ -24,9 +24,11 @@ def create_app(config_class=Config):
     # login_manager.init_app(app)
     # mail.init_app(app)
 
-    from flight.route.route import register
-    from flight.route.flight import flight
-    app.register_blueprint(register)
+    # from flight.route.route import register
+    # from flight.route.flight import flight
+    from flight.routes import flight
     app.register_blueprint(flight)
+    # app.register_blueprint(register)
+    # app.register_blueprint(flight)
 
     return app
