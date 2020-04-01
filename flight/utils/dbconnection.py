@@ -29,7 +29,7 @@ def sqlconnect():
 def getdata(sqlquery):
     
     mySQLConnection = sqlconnect()
-    cursor = mySQLConnection.cursor(buffered=True)
+    cursor = mySQLConnection.cursor(buffered=True, dictionary=True)
     cursor.execute(sqlquery)
     records = cursor.fetchall()
 

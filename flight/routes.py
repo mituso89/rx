@@ -2,12 +2,13 @@ import os
 import secrets
 import flight.controllers.flightctl as search
 from flask import (render_template, url_for, flash, redirect, request, abort,
-                   Blueprint)
+                   Blueprint, request, jsonify)
 
 
 flight = Blueprint('flight', __name__)
 
 
-@flight.route('/flight', methods=['GET', 'POST'])
+@flight.route('/get/flights', methods=['GET', 'POST'])
 def index():
-    return search.flightctl('clairty')
+    
+    return search.flightctl(request.get_json())

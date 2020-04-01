@@ -9,5 +9,5 @@ flight = Blueprint('flight', __name__)
 
 
 @flight.route('/flight', methods=['GET', 'POST'])
-def index():
-    return search['clairty']()
+async def index():
+    return await search['clairty']()
