@@ -21,7 +21,6 @@ def sentrequest(acc, data, method):
     response = requests.request("POST", acc['url']+'/' + methodMap[method],
                                 headers=headers, data=json.dumps(data))
 
-    print(response.json())
     return response
 
 
