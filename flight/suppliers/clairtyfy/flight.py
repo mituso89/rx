@@ -1,7 +1,9 @@
 import flight.utils.index as db
+import flight.utils.dbconnection as data
 import json
 import asyncio
 import flight.suppliers.clairtyfy.helper as helper
+from flight.config import Config
 
 fareClassMap = {
     'Economy': 'ECONOMY',
@@ -99,7 +101,7 @@ def makerequest(acc, req):
 
 
 def clean(result):
-    return ''
+    return 'tuan'
 
 
 def search(acc, req):
@@ -107,6 +109,9 @@ def search(acc, req):
 
     request = makerequest(acc, req)
     result = helper.sentrequest(acc, request, 'availability')
+    data.insert_mongo({'request': request, 'response':result.json() }, Config.mongo_db, 'logs')
+
+
     # redis = db['redis']()
     # my_json = json.loads(redis.get('flight-api:lucky:supplier:user:35'))
-    return 'tuan'
+    return clean(result)

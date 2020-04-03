@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
   mysql_db_container:
     image: mysql:latest
@@ -26,6 +26,11 @@ services:
       - 27017:27017
     volumes:
       - mongodb_data_container:/data/db
+  redis:
+    image: redis
+    container_name: flight_redis
+    ports:
+      - 6400:6400
 
 volumes:
   mysql_db_data_container:

@@ -27,3 +27,5 @@ urllib3==1.25.8
 virtualenv==16.7.4
 Werkzeug==0.16.0
 wrapt==1.11.2
+pymongo==3.10.1
+pyjwt==1.7.1

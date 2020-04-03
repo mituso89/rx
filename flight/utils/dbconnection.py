@@ -2,6 +2,7 @@ import redis
 import mysql.connector
 from mysql.connector import Error
 from flight.config import Config
+from pymongo import MongoClient
 
 
 def redisConnect():
@@ -25,9 +26,8 @@ def sqlconnect():
         print("Failed to get record from MySQL table: {}".format(error))
 
 
-
 def getdata(sqlquery):
-    
+
     mySQLConnection = sqlconnect()
     cursor = mySQLConnection.cursor(buffered=True, dictionary=True)
     cursor.execute(sqlquery)
@@ -41,3 +41,29 @@ def delconnect(mySQLConnection, cursor):
     if (mySQLConnection.is_connected()):
         cursor.close()
         mySQLConnection.close()
+
+
+def mongoConnect():
+    try:
+        client = MongoClient(Config.mongo_host,
+                             username=Config.mongo_user,
+                             password=Config.mongo_pass)
+        return client
+    except:
+        print("Failed to get record from MySQL table: {}")
+
+
+def mongodisconnect(client):
+    client.close()
+
+
+def insert_mongo(query, db_name, collection):
+    client = mongoConnect()
+    db = client[db_name]
+    collection = db[collection]
+    try:
+        collection.insert_one(query)
+        mongodisconnect(client)
+    except expression as identifier:
+        print(identifier)
+        mongodisconnect(client)
