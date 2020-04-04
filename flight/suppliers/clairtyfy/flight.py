@@ -105,13 +105,15 @@ def clean(result):
 
 
 def search(acc, req):
-    print(acc)
 
     request = makerequest(acc, req)
-    result = helper.sentrequest(acc, request, 'availability')
-    data.insert_mongo({'request': request, 'response':result.json() }, Config.mongo_db, 'logs')
+    datas = [
+        dict(url=acc['url'], body=request, method='availability')
+    ]
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    result = loop.run_until_complete(helper.looprequest(datas, acc))
+    #result = helper.sentrequest(acc, request, 'availability')
+    #data.insert_mongo({'request': request, 'response':result.json() }, Config.mongo_db, 'logs')
 
-
-    # redis = db['redis']()
-    # my_json = json.loads(redis.get('flight-api:lucky:supplier:user:35'))
     return clean(result)

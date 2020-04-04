@@ -12,6 +12,31 @@ methodMap = {
 }
 
 
+async def looprequest(datas, acc):
+
+    headers = generateheaders(acc)
+    loop = asyncio.get_event_loop()
+    response = [loop.run_in_executor(None, makerequest, acc['url'] + '/' +
+                                     methodMap[data['method']],
+                                     data['body'],
+                                     headers) for data in datas]
+    result = await asyncio.gather(*response)
+    return result
+
+
+def makerequest(url, data, headers):
+    response = requests.request("POST", url, data=json.dumps(data),
+                                headers=headers)
+    return response
+
+
+def generateheaders(acc):
+    header = {
+        'Authorization': acc['passwd'],
+        'Content-Type': 'application/json'
+    }
+    return header
+
 
 def sentrequest(acc, data, method):
     headers = {
